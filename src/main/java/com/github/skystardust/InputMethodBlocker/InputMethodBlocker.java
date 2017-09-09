@@ -1,25 +1,26 @@
 package com.github.skystardust.InputMethodBlocker;
 
 import net.minecraftforge.common.MinecraftForge;
-
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.*;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-
 @Mod(
-		modid = InputMethodBlocker.MOD_ID,
+        modid = InputMethodBlocker.MOD_ID,
         name = InputMethodBlocker.MOD_NAME,
         version = InputMethodBlocker.MOD_VERSION,
         acceptedMinecraftVersions = InputMethodBlocker.GAME_VERSION
 )
+@SideOnly(Side.CLIENT)
 public class InputMethodBlocker {
     public static final String MOD_ID = "inputmethodblocker";
     public static final String MOD_NAME = "InputMethodBlocker";
     public static final String MOD_VERSION = "1.5.0";
-    public static final String GAME_VERSION = "[1.7.2,1.7.10]";
+    public static final String GAME_VERSION = "[1.8,1.8.9]";
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event){
