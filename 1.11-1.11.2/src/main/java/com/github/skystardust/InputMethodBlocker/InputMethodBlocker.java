@@ -20,7 +20,7 @@ public class InputMethodBlocker {
     public static final String MOD_ID = "inputmethodblocker";
     public static final String MOD_NAME = "InputMethodBlocker";
     public static final String MOD_VERSION = "1.5.0";
-    public static final String GAME_VERSION = "[1.11,1.11.2]";
+    public static final String GAME_VERSION = "[1.11,)";
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event){
