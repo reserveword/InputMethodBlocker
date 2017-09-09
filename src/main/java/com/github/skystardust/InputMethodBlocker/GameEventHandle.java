@@ -16,14 +16,14 @@ public class GameEventHandle {
     private static final boolean DEBUG = false;
     @SubscribeEvent
     public void onChatGUI(GuiOpenEvent event) throws NoSuchFieldException, IllegalAccessException {
-        if (event.gui instanceof GuiChat){
+        if (event.getGui() instanceof GuiChat){
             NativeUtils.activeInputMethod("");
         }
     }
     @SubscribeEvent
     public void onRepairGUI(GuiScreenEvent.MouseInputEvent event) throws NoSuchFieldException, IllegalAccessException {
-        if (event.gui instanceof GuiRepair){
-            GuiRepair guiScreen = (GuiRepair) event.gui;
+        if (event.getGui() instanceof GuiRepair){
+            GuiRepair guiScreen = (GuiRepair) event.getGui();
             if (DEBUG){
                 for (Field f:ReflectionUtils.getPrivateObjectList(GuiRepair.class,GuiTextField.class,guiScreen)){
                     System.out.println(f);
@@ -40,8 +40,8 @@ public class GameEventHandle {
     }
     @SubscribeEvent
     public void onCreativeGUI(GuiScreenEvent.MouseInputEvent event) throws NoSuchFieldException, IllegalAccessException {
-        if (event.gui instanceof GuiContainerCreative){
-            GuiContainerCreative guiContainerCreative = (GuiContainerCreative) event.gui;
+        if (event.getGui() instanceof GuiContainerCreative){
+            GuiContainerCreative guiContainerCreative = (GuiContainerCreative) event.getGui();
             if (DEBUG){
                 for (Field f:ReflectionUtils.getPrivateObjectList(GuiContainerCreative.class,GuiTextField.class,guiContainerCreative)){
                     System.out.println(f);
@@ -58,67 +58,67 @@ public class GameEventHandle {
     }
     @SubscribeEvent
     public void onControlGUI(GuiOpenEvent event){
-        if (event.gui instanceof GuiControls){
+        if (event.getGui() instanceof GuiControls){
             NativeUtils.inactiveInputMethod("");
         }
     }
     @SubscribeEvent
     public void onInGameGUI(GuiOpenEvent event){
-        if (event.gui==null){
+        if (event.getGui()==null){
             NativeUtils.inactiveInputMethod("");
         }
     }
     @SubscribeEvent
     public void onSign(GuiOpenEvent event){
-        if (event.gui instanceof GuiEditSign){
+        if (event.getGui() instanceof GuiEditSign){
             NativeUtils.activeInputMethod("");
         }
     }
     @SubscribeEvent
     public void onCommandBlock(GuiOpenEvent event){
-        if (event.gui instanceof GuiCommandBlock){
+        if (event.getGui() instanceof GuiCommandBlock){
             NativeUtils.activeInputMethod("");
         }
     }
     @SubscribeEvent
     public void onCreateWorld(GuiOpenEvent event){
-        if (event.gui instanceof GuiCreateWorld){
+        if (event.getGui() instanceof GuiCreateWorld){
             NativeUtils.activeInputMethod("");
         }
     }
     @SubscribeEvent
     public void onEditBook(GuiOpenEvent event){
-        if (event.gui instanceof GuiScreenBook){
+        if (event.getGui() instanceof GuiScreenBook){
             NativeUtils.activeInputMethod("");
         }
     }
     @SubscribeEvent
     public void onRenameWorld(GuiOpenEvent event){
-        if (event.gui instanceof GuiRenameWorld){
+        if (event.getGui() instanceof GuiWorldEdit){
             NativeUtils.activeInputMethod("");
         }
     }
     @SubscribeEvent
     public void onAddServer(GuiOpenEvent event){
-        if (event.gui instanceof GuiScreenAddServer){
+        if (event.getGui() instanceof GuiScreenAddServer){
             NativeUtils.activeInputMethod("");
         }
     }
     @SubscribeEvent
     public void onDirectJoinServer(GuiOpenEvent event){
-        if (event.gui instanceof GuiScreenServerList){
+        if (event.getGui() instanceof GuiScreenServerList){
             NativeUtils.activeInputMethod("");
         }
     }
     @SubscribeEvent
     public void onMultiPlayer(GuiOpenEvent event){
-        if (event.gui instanceof GuiMultiplayer){
+        if (event.getGui() instanceof GuiMultiplayer){
             NativeUtils.inactiveInputMethod("");
         }
     }
     @SubscribeEvent
     public void onSelectWorld(GuiOpenEvent event){
-        if (event.gui instanceof GuiSelectWorld){
+        if (event.getGui() instanceof GuiWorldSelection){
             NativeUtils.inactiveInputMethod("");
         }
     }
