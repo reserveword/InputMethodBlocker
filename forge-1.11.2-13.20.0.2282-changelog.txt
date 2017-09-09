@@ -1,5 +1,13 @@
 Changelog:
-Build 2281:
+Build 2282:
+	cpw:
+		Add in a check to the splash screen. If the Display.update call takes
+		too long on average (over first 200 frames) we'll use a sleep based
+		timer to allow mods doing splash screen work some time on the LWJGL
+		global lock.
+		(cherry picked from commit 03d7eaa)
+
+Build 1.10.2-12.18.3.2281:
 	github:
 		Fix NumberFormatException being thrown for empty ItemStack
 		deserialization. Fixes #3828. (#3830)
