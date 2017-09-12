@@ -1,11 +1,14 @@
 package com.github.skystardust.InputMethodBlocker;
 
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
 
 import java.io.*;
 
@@ -19,12 +22,16 @@ import java.io.*;
 public class InputMethodBlocker {
     public static final String MOD_ID = "inputmethodblocker";
     public static final String MOD_NAME = "InputMethodBlocker";
-    public static final String MOD_VERSION = "1.5.0";
-    public static final String GAME_VERSION = "[1.11,)";
+    public static final String MOD_VERSION = "1.7.0";
+    public static final String GAME_VERSION = "[1.11,1.12.1]";
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event){
-        MinecraftForge.EVENT_BUS.register(new GameEventHandle());
+        KeyBinding disableIMEKeyBinding = new KeyBinding("关闭IME", Keyboard.KEY_H, "IME 控制");
+        KeyBinding enableIMEKeyBinding = new KeyBinding("开启IME", Keyboard.KEY_J, "IME 控制");
+        ClientRegistry.registerKeyBinding(disableIMEKeyBinding);
+        ClientRegistry.registerKeyBinding(enableIMEKeyBinding);
+        MinecraftForge.EVENT_BUS.register(new GameEventHandle(disableIMEKeyBinding,enableIMEKeyBinding));
         try {
             saveNativeFile();
         } catch (IOException e) {

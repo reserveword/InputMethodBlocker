@@ -3,10 +3,11 @@ package com.github.skystardust.InputMethodBlocker;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiEditSign;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -14,7 +15,15 @@ import java.lang.reflect.Field;
 
 @SideOnly(Side.CLIENT)
 public class GameEventHandle {
+    private KeyBinding disableIMEKeyBinding;
+    private KeyBinding enableIMEKeyBinding;
     private static final boolean DEBUG = false;
+
+    public GameEventHandle(KeyBinding disableIMEKeyBinding, KeyBinding enableIMEKeyBinding) {
+        this.disableIMEKeyBinding = disableIMEKeyBinding;
+        this.enableIMEKeyBinding = enableIMEKeyBinding;
+    }
+
     @SubscribeEvent
     public void onChatGUI(GuiOpenEvent event) throws NoSuchFieldException, IllegalAccessException {
         if (event.getGui() instanceof GuiChat){
@@ -121,6 +130,18 @@ public class GameEventHandle {
     public void onSelectWorld(GuiOpenEvent event){
         if (event.getGui() instanceof GuiWorldSelection){
             NativeUtils.inactiveInputMethod("");
+        }
+    }
+    @SubscribeEvent
+    public void onDisableIMEKeyPressed(InputEvent.KeyInputEvent keyInputEvent){
+        if (disableIMEKeyBinding.isPressed()){
+            NativeUtils.inactiveInputMethod("");
+        }
+    }
+    @SubscribeEvent
+    public void onEnableIMEKeyPressed(InputEvent.KeyInputEvent keyInputEvent){
+        if (enableIMEKeyBinding.isPressed()){
+            NativeUtils.activeInputMethod("");
         }
     }
 }
