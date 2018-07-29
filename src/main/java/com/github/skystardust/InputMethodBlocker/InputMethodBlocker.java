@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiEditSign;
 import net.minecraft.client.settings.KeyBinding;
@@ -52,6 +53,13 @@ public class InputMethodBlocker {
     }
 
     @SubscribeEvent
+    public void onPlayerMouseInput(InputEvent.MouseInputEvent mouseInputEvent){
+        if (IMENativeAccess.getIMEStatus()) {
+            IMENativeAccess.inactiveIME();
+        }
+    }
+
+    @SubscribeEvent
     public void onPlayerKeyDown(InputEvent.KeyInputEvent keyboardInputEvent) {
         EntityPlayerSP player = Minecraft.getMinecraft().player;
         if (player == null) {
@@ -70,14 +78,24 @@ public class InputMethodBlocker {
     }
 
     @SubscribeEvent
+    public void onPlayerGuiKeydown(GuiScreenEvent.KeyboardInputEvent keyboardInputEvent){
+        if (switchIMEKey.isPressed()) {
+
+            if (IMENativeAccess.getIMEStatus()) {
+                IMENativeAccess.inactiveIME();
+            } else {
+                IMENativeAccess.activeIME();
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void onGUIScreenSwitch(GuiOpenEvent guiOpenEvent) {
         if (guiOpenEvent.getGui() == null) {
             if (IMENativeAccess.getIMEStatus()) {
                 IMENativeAccess.inactiveIME();
             }
-        }
-        if (guiOpenEvent.getGui() instanceof GuiEditSign) {
-            IMENativeAccess.activeIME();
+            return;
         }
     }
 
@@ -89,6 +107,14 @@ public class InputMethodBlocker {
     private void detectGui(GuiScreen gui){
         if (gui.allowUserInput) {
             IMENativeAccess.activeIME();
+        }
+        if (gui instanceof GuiScreenBook) {
+            IMENativeAccess.activeIME();
+            return;
+        }
+        if (gui instanceof GuiEditSign) {
+            IMENativeAccess.activeIME();
+            return;
         }
         for (Field field : gui.getClass().getDeclaredFields()) {
             field.setAccessible(true);

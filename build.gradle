@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "2.0-SNAPSHOT"
+version = "2.2-SNAPSHOT"
 group = "com.github.skystardust" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "InputMethodBlocker-1.11-1.12.2"
 
